@@ -647,16 +647,18 @@ const LOCAL_PREFIX = 'esteira_fallback:';
 const SHEET_URL_STORAGE_KEY = 'esteira_sheet_api_url';
 const SUPABASE_URL_KEY = 'esteira_supabase_url';
 const SUPABASE_ANON_KEY = 'esteira_supabase_anon_key';
+const DEFAULT_SUPABASE_URL = 'https://fozqthzhhhvymzvkgqqk.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvenF0aHpoaGh2eW16dmtncXFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MjM5MzcsImV4cCI6MjEwMjE5OTkzN30.Sa7YhQ9V21to4XPfRKgJmIHmC0zylgfrGD2FN72RYII';
 const hasCloudStorage = (typeof window.storage !== 'undefined') && window.storage && typeof window.storage.get === 'function';
 
 let sheetApiUrl = '';
 try{ sheetApiUrl = localStorage.getItem(SHEET_URL_STORAGE_KEY) || ''; }catch(e){ sheetApiUrl = ''; }
-let supabaseUrl = '';
-let supabaseKey = '';
+let supabaseUrl = DEFAULT_SUPABASE_URL;
+let supabaseKey = DEFAULT_SUPABASE_ANON_KEY;
 try{
-  supabaseUrl = localStorage.getItem(SUPABASE_URL_KEY) || '';
-  supabaseKey = localStorage.getItem(SUPABASE_ANON_KEY) || '';
-}catch(e){ supabaseUrl=''; supabaseKey=''; }
+  supabaseUrl = localStorage.getItem(SUPABASE_URL_KEY) || DEFAULT_SUPABASE_URL;
+  supabaseKey = localStorage.getItem(SUPABASE_ANON_KEY) || DEFAULT_SUPABASE_ANON_KEY;
+}catch(e){ supabaseUrl=DEFAULT_SUPABASE_URL; supabaseKey=DEFAULT_SUPABASE_ANON_KEY; }
 
 function makeSupabaseAdapter(url, anonKey){
   const base = url.replace(/\/$/,'') + '/rest/v1/kv_store';
